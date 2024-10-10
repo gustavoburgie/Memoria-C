@@ -22,6 +22,7 @@ int removeFirst(List *lista);
 int removeLast(List *lista);
 int removePosition(List *lista, int posicao);
 void addFirst(List *lista, int valor);
+void insertPosition(List *lista, int position, int valor);
 
 void init(List *lista)
 {

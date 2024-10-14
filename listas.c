@@ -22,7 +22,7 @@ int removeFirst(List *lista);
 int removeLast(List *lista);
 int removePosition(List *lista, int posicao);
 void addFirst(List *lista, int valor);
-void insertPosition(List *lista, int position, int valor);
+void insertPosition(List *lista, int posicao, int valor);
 
 void init(List *lista)
 {
@@ -143,11 +143,40 @@ void addFirst(List *lista, int valor)
     lista->size++;
 }
 
-int main()
-{
+void insertPosition(List *lista, int posicao, int valor){
+    Node *aux = lista->head;
+    if(posicao == 0){
+        addFirst(lista, valor);
+        return;
+    }
+    if(lista->size == 0 || posicao > lista->size-1){
+        add(lista, valor);
+        return;
+    }
+
+    for(int i = 0; i<posicao-1; i++){
+        aux = aux->next;
+    }
+
+    //*se for pra adicionar
+    Node *novo = malloc(sizeof(Node));
+    novo->data = valor;
+    novo->next = aux->next;
+    aux->next = novo;
+    lista->size++;
+    //  */
+
+
+    /*se for pra substituir
+    aux->data = valor;
+    //  */
+}
+
+int main(){
     List minhaLista;
-    for (int i = 0; i < 100; i++)
-        addFirst(&minhaLista, i);
+    init(&minhaLista);
+    for (int i = 0; i < 99; i++)
+        add(&minhaLista, i);
 
     show(&minhaLista);
 /*
@@ -165,9 +194,21 @@ int main()
         removeLast(&minhaLista);
         show(&minhaLista);
     }*/
-    for(int i = 1; i<99; i++){
-    removePosition(&minhaLista, 1);
+    for(int i = 1; i<90; i++){
+    removeLast(&minhaLista);
     show(&minhaLista);
     }
-    printf("\n%d\n", minhaLista.size);
+    printf("size: %d\n\n", minhaLista.size);
+
+    insertPosition(&minhaLista, 1, 44);
+    show(&minhaLista);
+    printf("size: %d\n\n", minhaLista.size);
+
+    insertPosition(&minhaLista, 5, 500);
+    show(&minhaLista);
+    printf("size: %d\n\n", minhaLista.size);
+
+    insertPosition(&minhaLista, 12, 1200);
+    show(&minhaLista);
+    printf("size: %d\n\n", minhaLista.size);
 }
